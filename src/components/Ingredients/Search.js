@@ -13,26 +13,31 @@ const Search = React.memo(props => {
     const { data, error, loading, sendRequest, clearError } = useHttp()
     useEffect(() => {
         const timer = setTimeout(() => {
-            if (filter === inputRef.current.value) {
-                const query = filter.length === 0 ? '' : `?orderBy="title"&equalTo="${filter}"`
-                // fetch('https://react-hook-4dfdb.firebaseio.com/ingredients.json' + query)
-                //     .then(response => response.json())
-                //     .then(datas => {
-                //         const loadedIngredients = []
-                //         for (const key in datas) {
-                //             loadedIngredients.push({
-                //                 id: key,
-                //                 title: datas[key].title,
-                //                 amount: datas[key].amount
-                //             })
-                //         }
-                //         onSearchIngredients(loadedIngredients)
-                //     })
-                sendRequest(
-                    'https://react-hook-4dfdb.firebaseio.com/ingredients.json' + query,
-                    'GET'
-                )
-            }
+            const query = filter.length === 0 ? '' : `?orderBy="title"&equalTo="${filter}"`
+            sendRequest(
+                'https://react-hook-4dfdb.firebaseio.com/ingredients.json' + query,
+                'GET'
+            )
+            // if (filter === inputRef.current.value) {
+            //     const query = filter.length === 0 ? '' : `?orderBy="title"&equalTo="${filter}"`
+            //     // fetch('https://react-hook-4dfdb.firebaseio.com/ingredients.json' + query)
+            //     //     .then(response => response.json())
+            //     //     .then(datas => {
+            //     //         const loadedIngredients = []
+            //     //         for (const key in datas) {
+            //     //             loadedIngredients.push({
+            //     //                 id: key,
+            //     //                 title: datas[key].title,
+            //     //                 amount: datas[key].amount
+            //     //             })
+            //     //         }
+            //     //         onSearchIngredients(loadedIngredients)
+            //     //     })
+            //     sendRequest(
+            //         'https://react-hook-4dfdb.firebaseio.com/ingredients.json' + query,
+            //         'GET'
+            //     )
+            // }
         }, 500)
         return () => {
             clearTimeout(timer)
@@ -59,7 +64,7 @@ const Search = React.memo(props => {
                 {error && <ErrorModal onClose={clearError}>{error}</ErrorModal>}
                 <div className="search-input">
                     <label>Filter by Title</label>
-                    {loading && <LoadingIndicator/>}
+                    {loading && <LoadingIndicator />}
                     <input
                         ref={inputRef}
                         type="text"
